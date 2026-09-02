@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>周波数、近代 ― 近代日本史アーカイブ</title>
+<meta name="description" content="幕末から終戦まで、近代日本史をラジオのダイヤルをたどるように学ぶアーカイブサイト。">
+<meta name="robots" content="noai, noimageai">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho:wght@500;700;800&family=Zen+Kaku+Gothic+New:wght@400;500;700;900&family=Noto+Sans+JP:wght@300;400;500;700&family=Courier+Prime:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --wood-dark:#1c140d;
+    --wood:#2b2015;
+    --wood-light:#3d2f1e;
+    --dial-face:#f4e4bc;
+    --dial-face-dim:#e8d5a8;
+    --brass:#d4a017;
+    --brass-light:#f0c14b;
+    --brass-dim:#8a6a1f;
+    --needle:#b8493c;
+    --ink:#2b2015;
+    --cream:#f4e4bc;
+    --serif: "Shippori Mincho", serif;
+    --gothic: "Zen Kaku Gothic New", sans-serif;
+    --body: "Noto Sans JP", sans-serif;
+    --mono: "Courier Prime", monospace;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  html{scroll-behavior:smooth;}
+  body{
+    background:var(--wood-dark);
+    color:var(--cream);
+    font-family:var(--body);
+    line-height:1.9;
+    -webkit-font-smoothing:antialiased;
+    background-image:
+      repeating-linear-gradient(90deg, rgba(0,0,0,0.08) 0px, rgba(0,0,0,0.08) 1px, transparent 1px, transparent 3px),
+      linear-gradient(180deg, var(--wood-dark), var(--wood));
+  }
+  a{color:inherit;text-decoration:none;}
+  img{max-width:100%;display:block;}
+
+  /* ===== 電源ランプ的な微光 ===== */
+  @media (prefers-reduced-motion: no-preference){
+    .glow{animation:tubeglow 4s ease-in-out infinite;}
+    @keyframes tubeglow{
+      0%,100%{opacity:1;}
+      50%{opacity:.72;}
+    }
+    .needle{animation:drift 7s ease-in-out infinite;}
+    @keyframes drift{
+      0%,100%{transform:translateX(0) rotate(0deg);}
+      50%{transform:translateX(3px) rotate(.4deg);}
+    }
+  }
+
+  /* ===== ヘッダー：プリセット局ボタン ===== */
+  header{
+    position:sticky;top:0;z-index:50;
+    background:linear-gradient(180deg, var(--wood-light), var(--wood));
+    border-bottom:3px solid var(--brass-dim);
+    box-shadow:0 4px 18px rgba(0,0,0,.4);
+  }
+  .header-inner{
+    max-width:1100px;margin:0 auto;
+    display:flex;align-items:center;justify-content:space-between;
+    padding:14px 24px;flex-wrap:wrap;gap:12px;
+  }
+  .brand{
+    font-family:var(--serif);font-weight:800;
+    font-size:1.15rem;letter-spacing:.06em;color:var(--brass-light);
+    display:flex;align-items:center;gap:10px;
+  }
+  .brand::before{
+    content:"";width:11px;height:11px;border-radius:50%;
+    background:radial-gradient(circle at 35% 30%, #fff2c4, var(--brass) 60%, var(--brass-dim));
+    box-shadow:0 0 8px 2px rgba(240,193,75,.65);
+    flex-shrink:0;
+  }
+  nav{display:flex;gap:8px;flex-wrap:wrap;}
+  .preset{
+    font-family:var(--gothic);font-weight:500;font-size:.82rem;
+    color:var(--dial-face-dim);
+    border:1px solid var(--brass-dim);
+    background:linear-gradient(180deg, rgba(212,160,23,.08), rgba(0,0,0,.25));
+    padding:7px 14px;border-radius:3px;
+    letter-spacing:.04em;
+    transition:all .2s ease;
+    position:relative;
+  }
+  .preset:hover, .preset.active{
+    color:var(--wood-dark);
+    background:linear-gradient(180deg, var(--brass-light), var(--brass));
+    border-color:var(--brass-light);
+  }
+  .preset.active::after{
+    content:"● ON AIR";
+    position:absolute;top:-9px;right:-6px;
+    font-family:var(--mono);font-size:.5rem;
+    background:var(--needle);color:var(--cream);
+    padding:1px 4px;border-radius:2px;letter-spacing:0;
+  }
+
+  /* ===== ヒーロー：チューニングダイヤル ===== */
+  .hero{
+    max-width:1100px;margin:0 auto;padding:64px 24px 40px;
+  }
+  .eyebrow{
+    font-family:var(--mono);font-size:.75rem;letter-spacing:.28em;
+    color:var(--brass-dim);text-transform:uppercase;margin-bottom:18px;
+  }
+  .hero h1{
+    font-family:var(--serif);font-weight:800;
+    font-size:clamp(2.1rem, 5vw, 3.6rem);
+    color:var(--dial-face);
+    line-height:1.4;
+    margin-bottom:14px;
+  }
+  .hero h1 span{color:var(--brass-light);}
+  .hero p.lead{
+    max-width:56ch;color:var(--dial-face-dim);
+    font-size:1.02rem;font-weight:300;
+    margin-bottom:36px;
+  }
+
+  /* ダイヤル本体 */
+  .dial{
+    background:radial-gradient(ellipse at 50% -20%, #4a3620, var(--wood-dark) 70%);
+    border:2px solid var(--brass-dim);
+    border-radius:8px;
+    padding:28px 24px 20px;
+    box-shadow: inset 0 0 40px rgba(0,0,0,.55), 0 10px 30px rgba(0,0,0,.5);
+    position:relative;
+  }
+  .dial-face{
+    background:linear-gradient(180deg, var(--dial-face), var(--dial-face-dim));
+    border-radius:5px;
+    padding:22px 20px 26px;
+    position:relative;
+    overflow-x:auto;
+  }
+  .dial-scale{
+    position:relative;
+    min-width:640px;
+    height:46px;
+    border-bottom:2px solid var(--ink);
+    margin-bottom:6px;
+  }
+  .tick{
+    position:absolute;bottom:0;width:1px;height:10px;background:var(--ink);opacity:.5;
+  }
+  .stations{
+    position:relative;min-width:640px;
+    display:flex;justify-content:space-between;
+    padding-top:2px;
+  }
+  .station{
+    text-align:center;flex:1;position:relative;padding:0 2px;
+  }
+  .station .year{
+    font-family:var(--mono);font-weight:700;font-size:.78rem;color:var(--needle);
+  }
+  .station .name{
+    font-family:var(--gothic);font-weight:700;font-size:.72rem;
+    color:var(--ink);margin-top:3px;letter-spacing:.02em;
+  }
+  .needle{
+    position:absolute;top:-6px;left:39%;
+    width:2px;height:52px;background:var(--needle);
+    box-shadow:0 0 6px rgba(184,73,60,.7);
+  }
+  .needle::before{
+    content:"";position:absolute;top:-5px;left:-4px;
+    width:10px;height:10px;background:var(--needle);border-radius:50%;
+  }
+  .dial-caption{
+    font-family:var(--mono);font-size:.72rem;color:var(--brass-dim);
+    text-align:right;margin-top:14px;letter-spacing:.05em;
+  }
+
+  /* コントロール（メニューへの導線） */
+  .controls{
+    display:grid;grid-template-columns:repeat(auto-fit, minmax(220px,1fr));
+    gap:18px;margin-top:40px;
+  }
+  .knob-card{
+    background:linear-gradient(180deg, var(--wood-light), var(--wood));
+    border:1px solid var(--brass-dim);border-radius:6px;
+    padding:22px 20px;
+    transition:transform .2s ease, border-color .2s ease;
+  }
+  .knob-card:hover{transform:translateY(-3px);border-color:var(--brass-light);}
+  .knob{
+    width:34px;height:34px;border-radius:50%;
+    background:radial-gradient(circle at 35% 30%, var(--brass-light), var(--brass) 55%, var(--brass-dim));
+    box-shadow:0 3px 6px rgba(0,0,0,.5), inset 0 -2px 3px rgba(0,0,0,.3);
+    margin-bottom:14px;position:relative;
+  }
+  .knob::after{
+    content:"";position:absolute;top:4px;left:50%;
+    width:2px;height:11px;background:var(--wood-dark);
+    transform:translateX(-50%);
+  }
+  .knob-card .ch{
+    font-family:var(--mono);font-size:.7rem;color:var(--brass-dim);letter-spacing:.1em;
+  }
+  .knob-card h3{
+    font-family:var(--serif);font-weight:700;font-size:1.15rem;
+    color:var(--dial-face);margin:6px 0 10px;
+  }
+  .knob-card p{
+    font-size:.86rem;color:var(--dial-face-dim);font-weight:300;
+    margin-bottom:14px;
+  }
+  .tune-in{
+    font-family:var(--gothic);font-size:.78rem;font-weight:700;
+    color:var(--brass-light);letter-spacing:.04em;
+    display:inline-flex;align-items:center;gap:6px;
+  }
+  .tune-in::after{content:"›";font-size:1.1rem;transition:transform .2s;}
+  .knob-card:hover .tune-in::after{transform:translateX(4px);}
+
+  /* ===== このサイトについて（帯） ===== */
+  .about-strip{
+    background:var(--wood-dark);
+    border-top:1px solid var(--brass-dim);
+    border-bottom:1px solid var(--brass-dim);
+    padding:52px 24px;
+    margin-top:56px;
+  }
+  .about-inner{
+    max-width:800px;margin:0 auto;text-align:left;
+  }
+  .about-inner .eyebrow{margin-bottom:14px;}
+  .about-inner h2{
+    font-family:var(--serif);font-weight:700;font-size:1.5rem;
+    color:var(--dial-face);margin-bottom:16px;
+  }
+  .about-inner p{
+    color:var(--dial-face-dim);font-weight:300;font-size:.95rem;
+    max-width:60ch;
+  }
+  .speaker-grille{
+    display:grid;grid-template-columns:repeat(14,1fr);gap:4px;
+    max-width:280px;margin:26px 0 0;opacity:.5;
+  }
+  .speaker-grille span{
+    aspect-ratio:1;border-radius:50%;background:var(--brass-dim);
+  }
+
+  /* ===== フッター ===== */
+  footer{
+    max-width:1100px;margin:0 auto;padding:44px 24px 60px;
+  }
+  .footer-grid{
+    display:flex;flex-wrap:wrap;justify-content:space-between;gap:24px;
+    padding-bottom:24px;border-bottom:1px solid var(--brass-dim);
+  }
+  .footer-grid .brand{margin-bottom:6px;}
+  .footer-grid p{color:var(--brass-dim);font-size:.8rem;max-width:38ch;}
+  .footer-links{display:flex;flex-direction:column;gap:8px;}
+  .footer-links a{
+    font-family:var(--gothic);font-size:.82rem;color:var(--dial-face-dim);
+  }
+  .footer-links a:hover{color:var(--brass-light);}
+  .footer-bottom{
+    padding-top:20px;display:flex;flex-wrap:wrap;justify-content:space-between;gap:10px;
+    font-family:var(--mono);font-size:.7rem;color:var(--brass-dim);letter-spacing:.03em;
+  }
+
+  @media (max-width:640px){
+    .header-inner{flex-direction:column;align-items:flex-start;}
+    nav{width:100%;}
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="header-inner">
+    <div class="brand">周波数、近代</div>
+    <nav>
+      <a class="preset active" href="index.html">TOP</a>
+      <a class="preset" href="blog.html">BLOG</a>
+      <a class="preset" href="gallery.html">GALLERY</a>
+      <a class="preset" href="about.html">ABOUT</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <section class="hero">
+    <p class="eyebrow">On Air &nbsp;/&nbsp; 1868 — 1945</p>
+    <h1>ダイヤルを合わせれば、<br><span>近代日本</span>の声が聞こえる。</h1>
+    <p class="lead">幕末の混乱から終戦まで。街頭ラジオの前に人々が集まったように、このサイトも一つの「受信機」として、近代日本史の出来事や空気を少しずつ拾い集めていきます。</p>
+
+    <div class="dial">
+      <div class="dial-face">
+        <div class="dial-scale">
+          <div class="needle" aria-hidden="true"></div>
+        </div>
+        <div class="stations">
+          <div class="station"><div class="year">1868</div><div class="name">王政復古</div></div>
+          <div class="station"><div class="year">1889</div><div class="name">帝国憲法</div></div>
+          <div class="station"><div class="year">1904</div><div class="name">日露戦争</div></div>
+          <div class="station"><div class="year">1923</div><div class="name">関東大震災</div></div>
+          <div class="station"><div class="year">1931</div><div class="name">満州事変</div></div>
+          <div class="station"><div class="year">1945</div><div class="name">終戦</div></div>
+        </div>
+      </div>
+      <p class="dial-caption">TUNING — 近代日本史アーカイブ</p>
+    </div>
+
+    <div class="controls">
+      <div class="knob-card">
+        <div class="knob glow" aria-hidden="true"></div>
+        <div class="ch">CH.01</div>
+        <h3>日誌</h3>
+        <p>調べたこと、気づいたことを日付ごとに書き留めていく放送日誌です。</p>
+        <a class="tune-in" href="blog.html">周波数を合わせる</a>
+      </div>
+      <div class="knob-card">
+        <div class="knob glow" aria-hidden="true"></div>
+        <div class="ch">CH.02</div>
+        <h3>資料館</h3>
+        <p>写真・図版・イラストなど、時代の空気を伝える資料をまとめています。</p>
+        <a class="tune-in" href="gallery.html">周波数を合わせる</a>
+      </div>
+      <div class="knob-card">
+        <div class="knob glow" aria-hidden="true"></div>
+        <div class="ch">CH.03</div>
+        <h3>放送局について</h3>
+        <p>このサイトを運営している「局」の紹介と、制作の動機について。</p>
+        <a class="tune-in" href="about.html">周波数を合わせる</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="about-strip">
+    <div class="about-inner">
+      <p class="eyebrow">Station Info</p>
+      <h2>なぜ「ラジオ」なのか。</h2>
+      <p>近代の日本人が世界の出来事や国内のニュースに初めて日常的に触れたのは、新聞と並んでラジオでした。1925年の放送開始以来、電波は茶の間に事件を、街角に速報を届け続けました。このサイトも、当時のラジオのように、断片的でも確かな一次情報の手触りを大切にしながら、近代史の出来事を発信していきたいと考えています。</p>
+      <div class="speaker-grille" aria-hidden="true">
+        <span></span><span></span><span></span><span></span><span></span><span></span><span></span>
+        <span></span><span></span><span></span><span></span><span></span><span></span><span></span>
+        <span></span><span></span><span></span><span></span><span></span><span></span><span></span>
+        <span></span><span></span><span></span><span></span><span></span><span></span><span></span>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="footer-grid">
+    <div>
+      <div class="brand">周波数、近代</div>
+      <p>近代日本史（幕末〜終戦）をテーマにした個人アーカイブサイトです。</p>
+    </div>
+    <div class="footer-links">
+      <a href="blog.html">BLOG</a>
+      <a href="gallery.html">GALLERY</a>
+      <a href="about.html">ABOUT</a>
+      <a href="https://azaleacreativeroom888.github.io/" target="_blank" rel="noopener">Azalea Creative Room ↗</a>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>© 2026 周波数、近代 — Azalea Creative Room</span>
+    <span>このサイトの文章・画像のAI学習利用は禁止します（No AI Training）</span>
+  </div>
+</footer>
+
+</body>
+</html>
