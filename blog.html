@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>放送日誌 ― 周波数、近代</title>
+<meta name="description" content="近代日本史アーカイブ「周波数、近代」の放送日誌。調べたこと、気づいたことを日付ごとに記録しています。">
+<meta name="robots" content="noai, noimageai">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho:wght@500;700;800&family=Zen+Kaku+Gothic+New:wght@400;500;700;900&family=Noto+Sans+JP:wght@300;400;500;700&family=Courier+Prime:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --wood-dark:#1c140d;
+    --wood:#2b2015;
+    --wood-light:#3d2f1e;
+    --dial-face:#f4e4bc;
+    --dial-face-dim:#e8d5a8;
+    --brass:#d4a017;
+    --brass-light:#f0c14b;
+    --brass-dim:#8a6a1f;
+    --needle:#b8493c;
+    --ink:#2b2015;
+    --cream:#f4e4bc;
+    --serif: "Shippori Mincho", serif;
+    --gothic: "Zen Kaku Gothic New", sans-serif;
+    --body: "Noto Sans JP", sans-serif;
+    --mono: "Courier Prime", monospace;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  html{scroll-behavior:smooth;}
+  body{
+    background:var(--wood-dark);
+    color:var(--cream);
+    font-family:var(--body);
+    line-height:1.9;
+    -webkit-font-smoothing:antialiased;
+    background-image:
+      repeating-linear-gradient(90deg, rgba(0,0,0,0.08) 0px, rgba(0,0,0,0.08) 1px, transparent 1px, transparent 3px),
+      linear-gradient(180deg, var(--wood-dark), var(--wood));
+  }
+  a{color:inherit;text-decoration:none;}
+
+  @media (prefers-reduced-motion: no-preference){
+    .glow{animation:tubeglow 4s ease-in-out infinite;}
+    @keyframes tubeglow{0%,100%{opacity:1;}50%{opacity:.72;}}
+  }
+
+  /* ===== ヘッダー（indexと共通） ===== */
+  header{
+    position:sticky;top:0;z-index:50;
+    background:linear-gradient(180deg, var(--wood-light), var(--wood));
+    border-bottom:3px solid var(--brass-dim);
+    box-shadow:0 4px 18px rgba(0,0,0,.4);
+  }
+  .header-inner{
+    max-width:1100px;margin:0 auto;
+    display:flex;align-items:center;justify-content:space-between;
+    padding:14px 24px;flex-wrap:wrap;gap:12px;
+  }
+  .brand{
+    font-family:var(--serif);font-weight:800;
+    font-size:1.15rem;letter-spacing:.06em;color:var(--brass-light);
+    display:flex;align-items:center;gap:10px;
+  }
+  .brand::before{
+    content:"";width:11px;height:11px;border-radius:50%;
+    background:radial-gradient(circle at 35% 30%, #fff2c4, var(--brass) 60%, var(--brass-dim));
+    box-shadow:0 0 8px 2px rgba(240,193,75,.65);
+    flex-shrink:0;
+  }
+  nav{display:flex;gap:8px;flex-wrap:wrap;}
+  .preset{
+    font-family:var(--gothic);font-weight:500;font-size:.82rem;
+    color:var(--dial-face-dim);
+    border:1px solid var(--brass-dim);
+    background:linear-gradient(180deg, rgba(212,160,23,.08), rgba(0,0,0,.25));
+    padding:7px 14px;border-radius:3px;
+    letter-spacing:.04em;
+    transition:all .2s ease;
+    position:relative;
+  }
+  .preset:hover, .preset.active{
+    color:var(--wood-dark);
+    background:linear-gradient(180deg, var(--brass-light), var(--brass));
+    border-color:var(--brass-light);
+  }
+  .preset.active::after{
+    content:"● ON AIR";
+    position:absolute;top:-9px;right:-6px;
+    font-family:var(--mono);font-size:.5rem;
+    background:var(--needle);color:var(--cream);
+    padding:1px 4px;border-radius:2px;letter-spacing:0;
+  }
+
+  /* ===== ページヘッダー ===== */
+  .page-head{
+    max-width:900px;margin:0 auto;padding:56px 24px 24px;
+  }
+  .eyebrow{
+    font-family:var(--mono);font-size:.75rem;letter-spacing:.28em;
+    color:var(--brass-dim);text-transform:uppercase;margin-bottom:18px;
+  }
+  .page-head h1{
+    font-family:var(--serif);font-weight:800;
+    font-size:clamp(1.9rem, 4vw, 2.8rem);
+    color:var(--dial-face);
+    margin-bottom:12px;
+  }
+  .page-head p{
+    color:var(--dial-face-dim);font-weight:300;font-size:.95rem;
+    max-width:56ch;
+  }
+
+  /* VUメーター的な装飾ライン */
+  .reel-line{
+    max-width:900px;margin:28px auto 0;padding:0 24px;
+    display:flex;align-items:center;gap:10px;
+  }
+  .reel{
+    width:22px;height:22px;border-radius:50%;
+    border:3px solid var(--brass-dim);
+    position:relative;flex-shrink:0;
+  }
+  .reel::after{
+    content:"";position:absolute;inset:6px;border-radius:50%;background:var(--brass-dim);
+  }
+  .reel-line .tape{
+    flex:1;height:2px;background:repeating-linear-gradient(90deg, var(--brass-dim) 0 6px, transparent 6px 12px);
+  }
+
+  /* ===== 日誌ログ ===== */
+  .log{
+    max-width:900px;margin:0 auto;padding:36px 24px 60px;
+  }
+  .entry{
+    display:grid;grid-template-columns:150px 1fr;
+    gap:20px;
+    padding:26px 0;
+    border-bottom:1px solid var(--brass-dim);
+  }
+  .entry:first-child{padding-top:0;}
+  .entry-date{
+    font-family:var(--mono);
+    color:var(--brass-light);
+  }
+  .entry-date .day{
+    font-size:1.6rem;font-weight:700;display:block;line-height:1;
+  }
+  .entry-date .ym{
+    font-size:.75rem;color:var(--brass-dim);letter-spacing:.06em;display:block;margin-top:6px;
+  }
+  .entry-date .freq{
+    display:inline-block;margin-top:10px;font-size:.65rem;
+    color:var(--wood-dark);background:var(--brass-dim);
+    padding:2px 6px;border-radius:2px;letter-spacing:.05em;
+  }
+  .entry-body h2{
+    font-family:var(--gothic);font-weight:700;font-size:1.05rem;
+    color:var(--dial-face);margin-bottom:10px;letter-spacing:.01em;
+  }
+  .entry-body p{
+    color:var(--dial-face-dim);font-weight:300;font-size:.92rem;
+    max-width:62ch;
+  }
+
+  .log-end{
+    max-width:900px;margin:0 auto;padding:0 24px 60px;
+    display:flex;align-items:center;gap:14px;
+  }
+  .log-end .knob{
+    width:26px;height:26px;border-radius:50%;
+    background:radial-gradient(circle at 35% 30%, var(--brass-light), var(--brass) 55%, var(--brass-dim));
+    box-shadow:0 3px 6px rgba(0,0,0,.5), inset 0 -2px 3px rgba(0,0,0,.3);
+    flex-shrink:0;
+  }
+  .log-end p{
+    font-family:var(--mono);font-size:.75rem;color:var(--brass-dim);letter-spacing:.04em;
+  }
+
+  /* ===== フッター（indexと共通） ===== */
+  footer{
+    max-width:1100px;margin:0 auto;padding:44px 24px 60px;
+  }
+  .footer-grid{
+    display:flex;flex-wrap:wrap;justify-content:space-between;gap:24px;
+    padding-bottom:24px;border-bottom:1px solid var(--brass-dim);
+  }
+  .footer-grid .brand{margin-bottom:6px;}
+  .footer-grid p{color:var(--brass-dim);font-size:.8rem;max-width:38ch;}
+  .footer-links{display:flex;flex-direction:column;gap:8px;}
+  .footer-links a{
+    font-family:var(--gothic);font-size:.82rem;color:var(--dial-face-dim);
+  }
+  .footer-links a:hover{color:var(--brass-light);}
+  .footer-bottom{
+    padding-top:20px;display:flex;flex-wrap:wrap;justify-content:space-between;gap:10px;
+    font-family:var(--mono);font-size:.7rem;color:var(--brass-dim);letter-spacing:.03em;
+  }
+
+  @media (max-width:560px){
+    .header-inner{flex-direction:column;align-items:flex-start;}
+    nav{width:100%;}
+    .entry{grid-template-columns:1fr;gap:8px;}
+    .entry-date{display:flex;align-items:baseline;gap:10px;}
+    .entry-date .day{font-size:1.3rem;}
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="header-inner">
+    <div class="brand">周波数、近代</div>
+    <nav>
+      <a class="preset" href="index.html">TOP</a>
+      <a class="preset active" href="blog.html">BLOG</a>
+      <a class="preset" href="gallery.html">GALLERY</a>
+      <a class="preset" href="about.html">ABOUT</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <div class="page-head">
+    <p class="eyebrow">CH.01 — Broadcast Log</p>
+    <h1>放送日誌</h1>
+    <p>調べたこと、読んだ資料、ふと気づいたことを、日付だけを頼りに記録していく日誌です。順不同・不定期更新。</p>
+  </div>
+
+  <div class="reel-line" aria-hidden="true">
+    <div class="reel glow"></div>
+    <div class="tape"></div>
+    <div class="reel glow"></div>
+  </div>
+
+  <div class="log">
+
+    <article class="entry">
+      <div class="entry-date">
+        <span class="day">23</span>
+        <span class="ym">2026.08</span>
+        <span class="freq">REC</span>
+      </div>
+      <div class="entry-body">
+        <h2>ここに日誌のタイトルを入れる</h2>
+        <p>ここに日誌の本文を入れます。読んだ資料の感想や、調べていて気になった点などを自由に書いてください。</p>
+      </div>
+    </article>
+
+    <article class="entry">
+      <div class="entry-date">
+        <span class="day">14</span>
+        <span class="ym">2026.08</span>
+        <span class="freq">REC</span>
+      </div>
+      <div class="entry-body">
+        <h2>ここに日誌のタイトルを入れる</h2>
+        <p>ここに日誌の本文を入れます。1つのエントリーは日付・タイトル・本文の3点だけのシンプルな構成です。</p>
+      </div>
+    </article>
+
+    <article class="entry">
+      <div class="entry-date">
+        <span class="day">02</span>
+        <span class="ym">2026.08</span>
+        <span class="freq">REC</span>
+      </div>
+      <div class="entry-body">
+        <h2>ここに日誌のタイトルを入れる</h2>
+        <p>ここに日誌の本文を入れます。新しいエントリーは一番上に追加していく想定です。</p>
+      </div>
+    </article>
+
+  </div>
+
+  <div class="log-end">
+    <div class="knob" aria-hidden="true"></div>
+    <p>END OF TAPE — 最新の記録はここまでです</p>
+  </div>
+</main>
+
+<footer>
+  <div class="footer-grid">
+    <div>
+      <div class="brand">周波数、近代</div>
+      <p>近代日本史（幕末〜終戦）をテーマにした個人アーカイブサイトです。</p>
+    </div>
+    <div class="footer-links">
+      <a href="index.html">TOP</a>
+      <a href="gallery.html">GALLERY</a>
+      <a href="about.html">ABOUT</a>
+      <a href="https://azaleacreativeroom888.github.io/" target="_blank" rel="noopener">Azalea Creative Room ↗</a>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>© 2026 周波数、近代 — Azalea Creative Room</span>
+    <span>このサイトの文章・画像のAI学習利用は禁止します（No AI Training）</span>
+  </div>
+</footer>
+
+</body>
+</html>
