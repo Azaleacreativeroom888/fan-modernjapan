@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>資料館 ― 周波数、近代</title>
+<meta name="description" content="近代日本史アーカイブ「周波数、近代」の資料館。写真・図版・イラストなど、時代の空気を伝える資料をまとめています。">
+<meta name="robots" content="noai, noimageai">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho:wght@500;700;800&family=Zen+Kaku+Gothic+New:wght@400;500;700;900&family=Noto+Sans+JP:wght@300;400;500;700&family=Courier+Prime:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --wood-dark:#1c140d;
+    --wood:#2b2015;
+    --wood-light:#3d2f1e;
+    --dial-face:#f4e4bc;
+    --dial-face-dim:#e8d5a8;
+    --brass:#d4a017;
+    --brass-light:#f0c14b;
+    --brass-dim:#8a6a1f;
+    --needle:#b8493c;
+    --ink:#2b2015;
+    --cream:#f4e4bc;
+    --serif: "Shippori Mincho", serif;
+    --gothic: "Zen Kaku Gothic New", sans-serif;
+    --body: "Noto Sans JP", sans-serif;
+    --mono: "Courier Prime", monospace;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  html{scroll-behavior:smooth;}
+  body{
+    background:var(--wood-dark);
+    color:var(--cream);
+    font-family:var(--body);
+    line-height:1.9;
+    -webkit-font-smoothing:antialiased;
+    background-image:
+      repeating-linear-gradient(90deg, rgba(0,0,0,0.08) 0px, rgba(0,0,0,0.08) 1px, transparent 1px, transparent 3px),
+      linear-gradient(180deg, var(--wood-dark), var(--wood));
+  }
+  a{color:inherit;text-decoration:none;}
+
+  @media (prefers-reduced-motion: no-preference){
+    .glow{animation:tubeglow 4s ease-in-out infinite;}
+    @keyframes tubeglow{0%,100%{opacity:1;}50%{opacity:.72;}}
+  }
+
+  /* ===== ヘッダー（共通） ===== */
+  header{
+    position:sticky;top:0;z-index:50;
+    background:linear-gradient(180deg, var(--wood-light), var(--wood));
+    border-bottom:3px solid var(--brass-dim);
+    box-shadow:0 4px 18px rgba(0,0,0,.4);
+  }
+  .header-inner{
+    max-width:1100px;margin:0 auto;
+    display:flex;align-items:center;justify-content:space-between;
+    padding:14px 24px;flex-wrap:wrap;gap:12px;
+  }
+  .brand{
+    font-family:var(--serif);font-weight:800;
+    font-size:1.15rem;letter-spacing:.06em;color:var(--brass-light);
+    display:flex;align-items:center;gap:10px;
+  }
+  .brand::before{
+    content:"";width:11px;height:11px;border-radius:50%;
+    background:radial-gradient(circle at 35% 30%, #fff2c4, var(--brass) 60%, var(--brass-dim));
+    box-shadow:0 0 8px 2px rgba(240,193,75,.65);
+    flex-shrink:0;
+  }
+  nav{display:flex;gap:8px;flex-wrap:wrap;}
+  .preset{
+    font-family:var(--gothic);font-weight:500;font-size:.82rem;
+    color:var(--dial-face-dim);
+    border:1px solid var(--brass-dim);
+    background:linear-gradient(180deg, rgba(212,160,23,.08), rgba(0,0,0,.25));
+    padding:7px 14px;border-radius:3px;
+    letter-spacing:.04em;
+    transition:all .2s ease;
+    position:relative;
+  }
+  .preset:hover, .preset.active{
+    color:var(--wood-dark);
+    background:linear-gradient(180deg, var(--brass-light), var(--brass));
+    border-color:var(--brass-light);
+  }
+  .preset.active::after{
+    content:"● ON AIR";
+    position:absolute;top:-9px;right:-6px;
+    font-family:var(--mono);font-size:.5rem;
+    background:var(--needle);color:var(--cream);
+    padding:1px 4px;border-radius:2px;letter-spacing:0;
+  }
+
+  /* ===== ページヘッダー ===== */
+  .page-head{
+    max-width:1100px;margin:0 auto;padding:56px 24px 20px;
+  }
+  .eyebrow{
+    font-family:var(--mono);font-size:.75rem;letter-spacing:.28em;
+    color:var(--brass-dim);text-transform:uppercase;margin-bottom:18px;
+  }
+  .page-head h1{
+    font-family:var(--serif);font-weight:800;
+    font-size:clamp(1.9rem, 4vw, 2.8rem);
+    color:var(--dial-face);
+    margin-bottom:12px;
+  }
+  .page-head p{
+    color:var(--dial-face-dim);font-weight:300;font-size:.95rem;
+    max-width:56ch;
+  }
+
+  /* ===== 時代フィルター（周波数切替ボタン） ===== */
+  .filters{
+    max-width:1100px;margin:0 auto;padding:20px 24px 8px;
+    display:flex;flex-wrap:wrap;gap:8px;align-items:center;
+  }
+  .filters .label{
+    font-family:var(--mono);font-size:.7rem;color:var(--brass-dim);
+    letter-spacing:.1em;margin-right:6px;
+  }
+  .filter-btn{
+    font-family:var(--gothic);font-weight:500;font-size:.8rem;
+    color:var(--dial-face-dim);cursor:pointer;
+    border:1px solid var(--brass-dim);
+    background:linear-gradient(180deg, rgba(212,160,23,.08), rgba(0,0,0,.25));
+    padding:6px 14px;border-radius:3px;letter-spacing:.04em;
+    transition:all .2s ease;
+  }
+  .filter-btn:hover{border-color:var(--brass-light);color:var(--brass-light);}
+  .filter-btn.on{
+    color:var(--wood-dark);
+    background:linear-gradient(180deg, var(--brass-light), var(--brass));
+    border-color:var(--brass-light);
+  }
+  .filter-btn:focus-visible{outline:2px solid var(--brass-light);outline-offset:2px;}
+
+  /* ===== ギャラリーグリッド ===== */
+  .grid{
+    max-width:1100px;margin:0 auto;padding:24px 24px 64px;
+    display:grid;grid-template-columns:repeat(auto-fill, minmax(240px,1fr));
+    gap:22px;
+  }
+  .plate{
+    background:linear-gradient(180deg, var(--wood-light), var(--wood));
+    border:1px solid var(--brass-dim);border-radius:6px;
+    padding:12px 12px 16px;
+    transition:transform .2s ease, border-color .2s ease;
+  }
+  .plate:hover{transform:translateY(-3px);border-color:var(--brass-light);}
+  .plate[hidden]{display:none;}
+
+  /* 資料画像の枠（ダイヤル窓風）。画像を入れる場合は .frame の中に <img> を置く */
+  .frame{
+    aspect-ratio:4/3;
+    background:linear-gradient(180deg, var(--dial-face), var(--dial-face-dim));
+    border:3px solid var(--wood-dark);
+    outline:1px solid var(--brass-dim);
+    border-radius:3px;
+    position:relative;overflow:hidden;
+    display:flex;align-items:center;justify-content:center;
+    box-shadow:inset 0 0 18px rgba(43,32,21,.35);
+  }
+  .frame img{width:100%;height:100%;object-fit:cover;display:block;}
+  .frame .ph{
+    font-family:var(--mono);font-size:.72rem;color:var(--brass-dim);
+    letter-spacing:.14em;text-align:center;line-height:1.7;
+  }
+  .frame .ph b{display:block;font-size:1.5rem;color:var(--needle);letter-spacing:.05em;}
+  .frame::after{
+    content:"";position:absolute;left:50%;top:0;bottom:0;width:2px;
+    background:var(--needle);opacity:.0;
+  }
+
+  .plate-meta{
+    display:flex;justify-content:space-between;align-items:baseline;
+    margin-top:12px;gap:8px;
+  }
+  .plate-no{
+    font-family:var(--mono);font-size:.68rem;color:var(--brass-dim);letter-spacing:.1em;
+  }
+  .plate-era{
+    font-family:var(--gothic);font-size:.68rem;font-weight:700;
+    color:var(--wood-dark);background:var(--brass);
+    padding:1px 8px;border-radius:2px;
+  }
+  .plate h3{
+    font-family:var(--serif);font-weight:700;font-size:1rem;
+    color:var(--dial-face);margin:8px 0 4px;
+  }
+  .plate p{
+    font-size:.82rem;color:var(--dial-face-dim);font-weight:300;line-height:1.75;
+  }
+
+  .empty{
+    max-width:1100px;margin:0 auto;padding:0 24px 60px;
+    font-family:var(--mono);font-size:.78rem;color:var(--brass-dim);
+  }
+
+  /* ===== フッター（共通） ===== */
+  footer{
+    max-width:1100px;margin:0 auto;padding:44px 24px 60px;
+  }
+  .footer-grid{
+    display:flex;flex-wrap:wrap;justify-content:space-between;gap:24px;
+    padding-bottom:24px;border-bottom:1px solid var(--brass-dim);
+  }
+  .footer-grid .brand{margin-bottom:6px;}
+  .footer-grid p{color:var(--brass-dim);font-size:.8rem;max-width:38ch;}
+  .footer-links{display:flex;flex-direction:column;gap:8px;}
+  .footer-links a{
+    font-family:var(--gothic);font-size:.82rem;color:var(--dial-face-dim);
+  }
+  .footer-links a:hover{color:var(--brass-light);}
+  .footer-bottom{
+    padding-top:20px;display:flex;flex-wrap:wrap;justify-content:space-between;gap:10px;
+    font-family:var(--mono);font-size:.7rem;color:var(--brass-dim);letter-spacing:.03em;
+  }
+
+  @media (max-width:560px){
+    .header-inner{flex-direction:column;align-items:flex-start;}
+    nav{width:100%;}
+    .grid{grid-template-columns:1fr 1fr;gap:14px;}
+    .plate{padding:8px 8px 12px;}
+  }
+  @media (max-width:380px){
+    .grid{grid-template-columns:1fr;}
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="header-inner">
+    <div class="brand">周波数、近代</div>
+    <nav>
+      <a class="preset" href="index.html">TOP</a>
+      <a class="preset" href="blog.html">BLOG</a>
+      <a class="preset active" href="gallery.html">GALLERY</a>
+      <a class="preset" href="about.html">ABOUT</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <div class="page-head">
+    <p class="eyebrow">CH.02 — Archive Plates</p>
+    <h1>資料館</h1>
+    <p>写真・図版・イラストなど、時代の空気を伝える資料を集めた展示室です。時代のボタンで周波数を切り替えると、その時代の資料だけが表示されます。</p>
+  </div>
+
+  <div class="filters" role="group" aria-label="時代で絞り込む">
+    <span class="label">TUNE ▸</span>
+    <button class="filter-btn on" data-era="all" type="button">すべて</button>
+    <button class="filter-btn" data-era="bakumatsu" type="button">幕末</button>
+    <button class="filter-btn" data-era="meiji" type="button">明治</button>
+    <button class="filter-btn" data-era="taisho" type="button">大正</button>
+    <button class="filter-btn" data-era="showa" type="button">昭和</button>
+  </div>
+
+  <section class="grid" id="grid">
+
+    <!-- 画像を入れるときは .frame の中の .ph を <img src="..." alt="..."> に差し替えてください -->
+
+    <article class="plate" data-era="bakumatsu">
+      <div class="frame"><div class="ph"><b>1853</b>PLATE</div></div>
+      <div class="plate-meta"><span class="plate-no">No.001</span><span class="plate-era">幕末</span></div>
+      <h3>資料のタイトル</h3>
+      <p>ここに資料の簡単な説明を入れます。</p>
+    </article>
+
+    <article class="plate" data-era="meiji">
+      <div class="frame"><div class="ph"><b>1868</b>PLATE</div></div>
+      <div class="plate-meta"><span class="plate-no">No.002</span><span class="plate-era">明治</span></div>
+      <h3>資料のタイトル</h3>
+      <p>ここに資料の簡単な説明を入れます。</p>
+    </article>
+
+    <article class="plate" data-era="meiji">
+      <div class="frame"><div class="ph"><b>1889</b>PLATE</div></div>
+      <div class="plate-meta"><span class="plate-no">No.003</span><span class="plate-era">明治</span></div>
+      <h3>資料のタイトル</h3>
+      <p>ここに資料の簡単な説明を入れます。</p>
+    </article>
+
+    <article class="plate" data-era="taisho">
+      <div class="frame"><div class="ph"><b>1923</b>PLATE</div></div>
+      <div class="plate-meta"><span class="plate-no">No.004</span><span class="plate-era">大正</span></div>
+      <h3>資料のタイトル</h3>
+      <p>ここに資料の簡単な説明を入れます。</p>
+    </article>
+
+    <article class="plate" data-era="showa">
+      <div class="frame"><div class="ph"><b>1931</b>PLATE</div></div>
+      <div class="plate-meta"><span class="plate-no">No.005</span><span class="plate-era">昭和</span></div>
+      <h3>資料のタイトル</h3>
+      <p>ここに資料の簡単な説明を入れます。</p>
+    </article>
+
+    <article class="plate" data-era="showa">
+      <div class="frame"><div class="ph"><b>1945</b>PLATE</div></div>
+      <div class="plate-meta"><span class="plate-no">No.006</span><span class="plate-era">昭和</span></div>
+      <h3>資料のタイトル</h3>
+      <p>ここに資料の簡単な説明を入れます。</p>
+    </article>
+
+  </section>
+  <p class="empty" id="empty" hidden>NO SIGNAL — この時代の資料はまだありません</p>
+</main>
+
+<footer>
+  <div class="footer-grid">
+    <div>
+      <div class="brand">周波数、近代</div>
+      <p>近代日本史（幕末〜終戦）をテーマにした個人アーカイブサイトです。</p>
+    </div>
+    <div class="footer-links">
+      <a href="index.html">TOP</a>
+      <a href="blog.html">BLOG</a>
+      <a href="about.html">ABOUT</a>
+      <a href="https://azaleacreativeroom888.github.io/" target="_blank" rel="noopener">Azalea Creative Room ↗</a>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>© 2026 周波数、近代 — Azalea Creative Room</span>
+    <span>このサイトの文章・画像のAI学習利用は禁止します（No AI Training）</span>
+  </div>
+</footer>
+
+<script>
+  (function(){
+    var buttons = document.querySelectorAll('.filter-btn');
+    var plates = document.querySelectorAll('.plate');
+    var empty = document.getElementById('empty');
+    buttons.forEach(function(btn){
+      btn.addEventListener('click', function(){
+        var era = btn.getAttribute('data-era');
+        buttons.forEach(function(b){ b.classList.remove('on'); });
+        btn.classList.add('on');
+        var shown = 0;
+        plates.forEach(function(p){
+          var match = (era === 'all' || p.getAttribute('data-era') === era);
+          p.hidden = !match;
+          if(match) shown++;
+        });
+        empty.hidden = shown !== 0;
+      });
+    });
+  })();
+</script>
+
+</body>
+</html>
